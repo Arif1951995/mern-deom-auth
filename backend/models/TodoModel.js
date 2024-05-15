@@ -9,7 +9,12 @@ const todoSchema = new mongoose.Schema({
     desc: {
         type: String,
     
-    }
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      }
 })
 
 

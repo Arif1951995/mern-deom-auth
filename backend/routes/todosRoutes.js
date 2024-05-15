@@ -3,11 +3,17 @@ const router = express.Router();
 const Todo = require("../models/TodoModel");
 const { authenticateToken } = require("../middleware/auth");
 
-router.get("/", authenticateToken, (req, res) => {
-  res.send({ msg: req.user });
+router.get("/", authenticateToken, async (req, res) => {  
+  // console.log();
+  const userId = req.user.id;
+  const todos = await Todo.find({user: "userId"})
+  res.send(todos);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authenticateToken, async (req, res) => {
+  console.log("user",  req.user)
+  req.body.user = req.user.id;
+  console.log("req.body", req.body)
   try {
     const todo = await Todo.create(req.body);
     res.status(201).send(todo);
