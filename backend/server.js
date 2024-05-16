@@ -7,15 +7,29 @@ const logger = require("./middleware/logger");
 const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
-
+const cors = require("cors");
 const PORT = process.env.PORT;
 
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Headers","*");
+  next()
+})
+ 
+
+
+
+
+app.use(cors());
 app.use(express.json());
 app.use(logger);
 app.use("/", routes);
 
-app.use(errorHandler)
+app.use(errorHandler);
+
+
+
+
 mongoose
   .connect(process.env.MONGOURI)
   .then(() => {

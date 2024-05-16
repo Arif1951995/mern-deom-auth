@@ -86,4 +86,12 @@ router.get("/users",  async (req, res) => {
   res.send(users);
 });
 
+
+router.get("/loggedInUser",  authenticateToken, async (req, res) => {  
+  // console.log();
+  // const users = await User.find({})
+  
+  return res.status(200).json(req.user);
+});
+
 module.exports = router;

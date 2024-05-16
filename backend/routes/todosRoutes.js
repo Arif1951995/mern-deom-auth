@@ -6,7 +6,7 @@ const { authenticateToken } = require("../middleware/auth");
 router.get("/", authenticateToken, async (req, res) => {  
   // console.log();
   const userId = req.user.id;
-  const todos = await Todo.find({user: "userId"})
+  const todos = await Todo.find({user: userId}).populate("user", "name email")
   res.send(todos);
 });
 
